@@ -10,7 +10,7 @@ use hyper::{Method, Request, Response, StatusCode};
 use hyper_util::rt::TokioIo;
 use matchit::Router;
 use tokio::net::TcpListener;
-use tracing::{error, info};
+use tracing::{debug, error, info};
 
 use crate::config::Config;
 use crate::registry::Registry;
@@ -52,6 +52,8 @@ async fn handle_request(
     let method = req.method().clone();
     let path = req.uri().path();
     let query = req.uri().query();
+
+    debug!("{} {}", method, path);
 
     // Match route
     let matched = match router.at(path) {
