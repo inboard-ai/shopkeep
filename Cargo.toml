@@ -6,7 +6,7 @@ description = "HTTP server for the emporium extension marketplace"
 license = "MIT"
 
 [workspace]
-members = ["example/api-client"]
+members = ["core", "example/api-client"]
 
 [dependencies]
 # HTTP server
@@ -29,9 +29,12 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 # CLI
 clap = { version = "4", features = ["derive"] }
 
+# Core types
+shopkeep_core = { path = "core" }
+
 # Versioning and dates
 semver = { version = "1", features = ["serde"] }
-chrono = { version = "0.4", features = ["serde"] }
+jiff = { version = "0.2", features = ["serde"] }
 
 # Package handling
 bytes = "1"

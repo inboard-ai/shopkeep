@@ -2,62 +2,12 @@ use async_trait::async_trait;
 use bytes::Bytes;
 use serde::{Deserialize, Serialize};
 
+pub use shopkeep_core::{ListOptions, Page};
+
 use crate::error::Result;
 use crate::extension;
 
 pub mod fs;
-
-/// Options for listing extensions
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
-pub struct ListOptions {
-    /// Search query
-    #[serde(default)]
-    pub query: Option<String>,
-    /// Filter by category
-    #[serde(default)]
-    pub category: Option<String>,
-    /// Page number (1-indexed)
-    #[serde(default = "default_page")]
-    pub page: u32,
-    /// Items per page
-    #[serde(default = "default_per_page")]
-    pub per_page: u32,
-}
-
-fn default_page() -> u32 {
-    1
-}
-
-fn default_per_page() -> u32 {
-    20
-}
-
-/// A paginated response
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Page<T> {
-    pub items: Vec<T>,
-    pub total: u32,
-    pub page: u32,
-    pub per_page: u32,
-    pub total_pages: u32,
-}
-
-impl<T> Page<T> {
-    pub fn new(items: Vec<T>, total: u32, page: u32, per_page: u32) -> Self {
-        let total_pages = if total == 0 {
-            1
-        } else {
-            (total + per_page - 1) / per_page
-        };
-        Self {
-            items,
-            total,
-            page,
-            per_page,
-            total_pages,
-        }
-    }
-}
 
 /// Extension metadata stored in the registry
 #[derive(Debug, Clone, Serialize, Deserialize)]

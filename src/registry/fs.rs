@@ -2,7 +2,7 @@ use std::path::PathBuf;
 
 use async_trait::async_trait;
 use bytes::Bytes;
-use chrono::Utc;
+use jiff::Timestamp;
 use sha2::{Digest, Sha256};
 use tokio::fs;
 use tracing::{debug, info};
@@ -290,7 +290,7 @@ impl Registry for FilesystemRegistry {
         // Write version meta
         let version_meta = extension::Version {
             version: version.clone(),
-            created_at: Utc::now(),
+            created_at: Timestamp::now(),
             checksum_sha256: checksum,
             size_bytes: package.len() as u64,
         };

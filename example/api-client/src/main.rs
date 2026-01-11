@@ -5,73 +5,9 @@
 //! Usage:
 //!   cargo run -p api-client [--url http://localhost:8080]
 
-#![allow(dead_code)]
-
-use jiff::Timestamp;
-use serde::Deserialize;
+use shopkeep_core::{Details, Page, Summary, Version};
 
 const DEFAULT_URL: &str = "http://localhost:8080";
-
-/// Paginated response wrapper
-#[derive(Debug, Deserialize)]
-struct Page<T> {
-    items: Vec<T>,
-    total: u32,
-    page: u32,
-    per_page: u32,
-    total_pages: u32,
-}
-
-/// Extension summary (from list endpoint)
-#[derive(Debug, Deserialize)]
-struct Summary {
-    id: String,
-    name: String,
-    version: semver::Version,
-    description: String,
-    author: String,
-    license: String,
-    #[serde(default)]
-    categories: Vec<String>,
-    updated_at: Timestamp,
-}
-
-/// Extension details (from get endpoint)
-#[derive(Debug, Deserialize)]
-struct Details {
-    id: String,
-    name: String,
-    version: semver::Version,
-    description: String,
-    author: String,
-    license: String,
-    #[serde(default)]
-    categories: Vec<String>,
-    updated_at: Timestamp,
-    #[serde(default)]
-    homepage: Option<String>,
-    #[serde(default)]
-    repository: Option<String>,
-    #[serde(default)]
-    keywords: Vec<String>,
-    #[serde(default)]
-    versions: Vec<String>,
-    #[serde(default)]
-    capabilities: Vec<String>,
-    #[serde(default)]
-    config_schema: Option<serde_json::Value>,
-    #[serde(default)]
-    operations: Vec<String>,
-}
-
-/// Version information
-#[derive(Debug, Deserialize)]
-struct Version {
-    version: semver::Version,
-    created_at: Timestamp,
-    checksum_sha256: String,
-    size_bytes: u64,
-}
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
