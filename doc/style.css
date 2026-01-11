@@ -1,0 +1,93 @@
+/* inboard brand colors for rustdoc - variable overrides only */
+
+:root,
+:root[data-theme="light"],
+:root[data-theme="dark"] {
+    /* inboard brand colors */
+    --inboard-bg: #ffffff;
+    --inboard-bg-secondary: #f2f2f2;
+    --inboard-text: #3A3A3A;
+    --inboard-text-muted: #888888;
+    --inboard-accent: #000000;
+    --inboard-blue: #00A2FF;
+    --inboard-purple: #4C6EE6;
+    --inboard-red: #FF644E;
+    --inboard-lime: #61D836;
+    --inboard-yellow: #FFD932;
+    --inboard-cyan: #16E7CF;
+    --inboard-soft-gray: #666666;
+
+    /* Page colors */
+    --main-background-color: var(--inboard-bg);
+    --main-color: var(--inboard-text);
+    --sidebar-background-color: var(--inboard-bg-secondary);
+    --sidebar-background-color-hover: #e8e8e8;
+    --code-block-background-color: var(--inboard-bg-secondary);
+    --headings-border-bottom-color: var(--inboard-bg-secondary);
+    --border-color: #e0e0e0;
+    --button-background-color: var(--inboard-bg);
+    --right-side-color: var(--inboard-text-muted);
+    --search-input-focused-border-color: var(--inboard-accent);
+    --settings-button-border-focus: var(--inboard-accent);
+    --sidebar-current-link-background-color: var(--inboard-bg);
+
+    /* Link colors - mapping rustdoc defaults to inboard */
+    --type-link-color: var(--inboard-blue);           /* structs, enums, unions (was #ad378a magenta) */
+    --trait-link-color: var(--inboard-purple);        /* traits (was #6e4fc9 purple) */
+    --assoc-item-link-color: var(--inboard-text);     /* associated items (was #3873ad blue) */
+    --function-link-color: var(--inboard-text);       /* functions (was #ad7c37 orange) */
+    --macro-link-color: var(--inboard-cyan);          /* macros (was #068000 green) */
+    --keyword-link-color: var(--inboard-text);        /* keywords (was #3873ad blue) */
+    --mod-link-color: var(--inboard-text);            /* modules (was #3873ad blue) */
+    --link-color: var(--inboard-accent);              /* general links, breadcrumbs (was #3873ad blue) → black */
+    --sidebar-link-color: var(--inboard-text);
+
+    /* Code syntax highlighting - mapping rustdoc defaults to inboard */
+    --code-highlight-kw-color: var(--inboard-text);             /* impl, for, fn, pub (was #8959a8 purple) */
+    --code-highlight-kw-2-color: var(--inboard-text);           /* secondary keywords (was #4271ae blue) */
+    --code-highlight-lifetime-color: var(--inboard-yellow);     /* 'de, 'static (was #b76514 orange) */
+    --code-highlight-prelude-color: var(--inboard-blue);        /* Option, Result, Vec (was #4271ae blue) */
+    --code-highlight-prelude-val-color: var(--inboard-red);     /* Ok, Err, Some, None (was #c82829 red) */
+    --code-highlight-number-color: var(--inboard-lime);         /* numbers (was #718c00 green) */
+    --code-highlight-string-color: var(--inboard-lime);         /* strings (was #718c00 green) */
+    --code-highlight-literal-color: var(--inboard-red);         /* true, false (was #c82829 red) */
+    --code-highlight-attribute-color: var(--inboard-text-muted); /* #[...] (was #c82829 red) */
+    --code-highlight-self-color: var(--inboard-red);            /* self, Self (was #c82829 red) */
+    --code-highlight-macro-color: var(--inboard-cyan);          /* macros in code (was #3e999f teal) */
+    --code-highlight-question-mark-color: var(--inboard-yellow); /* ? operator (was #ff9011 orange) */
+    --code-highlight-comment-color: var(--inboard-text-muted);  /* comments (was #8e908c gray) */
+    --code-highlight-doc-comment-color: var(--inboard-soft-gray); /* doc comments (was #4d4d4c) */
+
+    /* Misc */
+    --code-attribute-color: var(--inboard-text-muted);
+    --toggles-color: var(--inboard-text-muted);
+    --copy-path-button-color: var(--inboard-text-muted);
+}
+
+/* Font overrides - Inter for UI, IBM Plex Mono for code */
+body,
+#crate-search,
+h1, h2, h3, h4, h5, h6,
+.sidebar,
+.mobile-topbar,
+.search-input,
+.search-results .result-name,
+.out-of-band,
+.sub-heading,
+span.since,
+a.src,
+rustdoc-toolbar,
+summary.hideme,
+.scraped-example-list,
+.rustdoc-breadcrumbs,
+ul.all-items {
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.01em;
+}
+
+pre,
+code,
+.item-decl,
+.code-header {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+}
