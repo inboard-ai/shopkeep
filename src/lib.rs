@@ -1,8 +1,6 @@
 //! shopkeep - HTTP server for the emporium extension marketplace
 //!
 //! This crate provides a standalone HTTP server for serving extension packages.
-//! It is designed to be completely independent with zero coupling to any specific
-//! client implementation.
 
 pub mod api;
 pub mod config;
