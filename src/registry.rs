@@ -1,15 +1,15 @@
+//! Extension registry abstraction.
+
 use async_trait::async_trait;
 use bytes::Bytes;
 use serde::{Deserialize, Serialize};
 
-pub use shopkeep_core::{ListOptions, Page};
-
-use crate::error::Result;
-use crate::extension;
+use crate::types::{Details, ListOptions, Page, Summary, Version};
+use crate::Result;
 
 pub mod fs;
 
-/// Extension metadata stored in the registry
+/// Extension metadata stored in the registry.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Meta {
     pub id: String,
@@ -34,9 +34,8 @@ pub struct Meta {
 }
 
 impl Meta {
-    /// Convert to summary with version information
-    pub fn to_summary(&self, version: &extension::Version) -> extension::Summary {
-        extension::Summary {
+    pub fn to_summary(&self, version: &Version) -> Summary {
+        Summary {
             id: self.id.clone(),
             name: self.name.clone(),
             version: version.version.clone(),
@@ -48,9 +47,8 @@ impl Meta {
         }
     }
 
-    /// Convert to details with version information
-    pub fn to_details(&self, latest: &extension::Version, versions: Vec<String>) -> extension::Details {
-        extension::Details {
+    pub fn to_details(&self, latest: &Version, versions: Vec<String>) -> Details {
+        Details {
             id: self.id.clone(),
             name: self.name.clone(),
             version: latest.version.clone(),
@@ -70,27 +68,14 @@ impl Meta {
     }
 }
 
-/// Registry trait for extension storage backends
+/// Registry trait for extension storage backends.
 #[async_trait]
 pub trait Registry: Send + Sync {
-    /// List extensions with pagination and filtering
-    async fn list(&self, options: ListOptions) -> Result<Page<extension::Summary>>;
-
-    /// Get extension details by ID
-    async fn get(&self, id: &str) -> Result<extension::Details>;
-
-    /// Get all versions of an extension
-    async fn get_versions(&self, id: &str) -> Result<Vec<extension::Version>>;
-
-    /// Get a specific version of an extension
-    async fn get_version(&self, id: &str, version: &semver::Version) -> Result<extension::Version>;
-
-    /// Download an extension package
+    async fn list(&self, options: ListOptions) -> Result<Page<Summary>>;
+    async fn get(&self, id: &str) -> Result<Details>;
+    async fn get_versions(&self, id: &str) -> Result<Vec<Version>>;
+    async fn get_version(&self, id: &str, version: &semver::Version) -> Result<Version>;
     async fn download(&self, id: &str, version: &semver::Version) -> Result<Bytes>;
-
-    /// Publish a new extension package
     async fn publish(&self, package: Bytes) -> Result<()>;
-
-    /// Get the latest version of an extension
-    async fn get_latest_version(&self, id: &str) -> Result<extension::Version>;
+    async fn get_latest_version(&self, id: &str) -> Result<Version>;
 }
