@@ -14,7 +14,7 @@ path = "examples/server.rs"
 
 [dependencies]
 # Server framework
-runway = { path = "../runway" }
+runway = { git = "https://github.com/inboard-ai/runway.git", branch = "master" }
 
 # Async runtime
 tokio = { version = "1", features = ["full"] }
